@@ -7,10 +7,8 @@ Vec3GetMagnitude(Vector3D *vec3)
 Vector3D
 Vec3NormalizeNew(Vector3D *vec3)
 {
-    Vector3D normalized = {};
     float reverseMagnitude = InverseSquareRoot(vec3->x*vec3->x + vec3->y*vec3->y + vec3->z*vec3->z);
-    Vec3ScalarOperation(&normalized, Mul, reverseMagnitude);
-    return normalized;
+    return Vec3ScalarOperationNew(vec3, Mul, reverseMagnitude);
 }
 
 void
