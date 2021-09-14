@@ -21,28 +21,28 @@ Vec3Normalize(Vector3D *vec3)
 Vector3D
 Vec3ScalarOperationNew(Vector3D *vec3, Operation operation, float scalar)
 {
-    Vector3D operated = {};
+    Vector3D result = {};
     switch (operation)
     {
         case Mul:
-            operated.x = vec3->x * scalar;
-            operated.y = vec3->y * scalar;
-            operated.z = vec3->z * scalar;
+            result.x = vec3->x * scalar;
+            result.y = vec3->y * scalar;
+            result.z = vec3->z * scalar;
             break;
         case Div:
-            operated.x = vec3->x / scalar;
-            operated.y = vec3->y / scalar;
-            operated.z = vec3->z / scalar;
+            result.x = vec3->x / scalar;
+            result.y = vec3->y / scalar;
+            result.z = vec3->z / scalar;
             break;
         case Negate:
-            operated.x = vec3->x * -1;
-            operated.y = vec3->y * -1;
-            operated.z = vec3->z * -1;
+            result.x = vec3->x * -1;
+            result.y = vec3->y * -1;
+            result.z = vec3->z * -1;
             break;        
         default:
-            ErrorExit("Invalid operation with a vector and a scalar.\n");
+            ErrorExit("Invalid operation in Vec3ScalarOperationNew.\n");
     }
-    return operated;
+    return result;
 }
 
 void
@@ -68,4 +68,53 @@ Vec3ScalarOperation(Vector3D *vec3, Operation operation, float scalar)
         default:
             vec3 = NULL;
     }
+}
+
+Vector3D
+Vec3VectoralOperationNew(Vector3D *vecA, Operation operation, Vector3D *vecB)
+{
+    Vector3D result = {};
+    float sign = 0;
+
+    switch (operation)
+    {
+        case Sum:
+            sign = 1;
+            break;
+        case Subs:
+            sign = -1;
+            break; 
+        default:
+            ErrorExit("Invalid operation in Vec3VectoralOperationNew\n");
+    }
+
+    result.x = vecA->x + sign * vecB->x;
+    result.y = vecA->y + sign * vecB->y;
+    result.z = vecA->z + sign * vecB->z;
+
+    return result;
+}
+
+void
+Vec3VectoralOperation(Vector3D *vecA, Operation operation, Vector3D *vecB)
+{
+    float sign = 0;
+    
+    switch (operation)
+    {
+        case Sum:
+            sign = 1;
+            break;
+        case Subs:
+            sign = -1;
+            break;
+        default:
+            vecA = NULL;
+            return;
+    }
+
+    vecA->x += sign * vecB->x;
+    vecA->y += sign * vecB->y;
+    vecA->z += sign * vecB->z;
+
 }
