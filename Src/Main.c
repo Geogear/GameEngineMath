@@ -4,9 +4,11 @@
 #include "../lib/Vector.h"
 #include "../lib/MyMath.h"
 #include "../lib/Error.h"
-#include "vector.c"
+#include "../lib/Matrix.h"
+#include "Vector.c"
 #include "MyMath.c"
 #include "Error.c"
+#include "Matrix.c"
 
 int
 main(int argc, char **argv)

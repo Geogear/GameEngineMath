@@ -1,4 +1,4 @@
-/* Inverse Square Root */
+/* Inverse Square Root, quake code, taken from wikipedia */
 float InverseSquareRoot(float number)
 {
 	const float x2 = number * 0.5F;
@@ -13,7 +13,7 @@ float InverseSquareRoot(float number)
 	return conv.f;
 }
 
-/* Square Root */
+/* Square Root, taken from wikipedia */
 float SquareRoot(float number)
 {
     union { float f; uint32_t i; } val = {number};	/* Convert type, preserving bit pattern */
