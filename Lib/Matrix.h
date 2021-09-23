@@ -15,4 +15,10 @@ Matrix3D Matrix3DNewFromVectors(const Vector3D *vecA, const Vector3D *vecB, cons
 const float * MatrixGet(Matrix3D *matrix,int i, int j);
 Vector3D * MatrixGetVector(Matrix3D *matrix, int j);
 
+Matrix3D Matrix3DOperationNew(Matrix3D *m1, Operation operation, Matrix3D *m2);
+void Matrix3DOperation(Matrix3D *m1, Operation operation, Matrix3D *m2);
+
+Matrix3D Matrix3DOperationScalarNew(Matrix3D *m1, float scalar);
+void Matrix3DOperationScalar(Matrix3D *m1, float scalar);
+
 #endif

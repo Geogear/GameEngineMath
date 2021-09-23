@@ -33,3 +33,37 @@ MatrixGetVector(Matrix3D *matrix, int j)
     vec = (Vector3D *)matrix->n[j];
     return vec;
 }
+
+Matrix3D
+Matrix3DOperationNew(Matrix3D *m1, Operation operation, Matrix3D *m2)
+{
+    Vector3D vecA = Vec3OperationVectoralNew(MatrixGetVector(m1, 0), operation, MatrixGetVector(m2, 0));
+    Vector3D vecB = Vec3OperationVectoralNew(MatrixGetVector(m1, 1), operation, MatrixGetVector(m2, 1));
+    Vector3D vecC = Vec3OperationVectoralNew(MatrixGetVector(m1, 2), operation, MatrixGetVector(m2, 2));
+    return Matrix3DNewFromVectors(&vecA, &vecB, &vecC);
+}
+
+void Matrix3DOperation(Matrix3D *m1, Operation operation, Matrix3D *m2)
+{
+    Vec3OperationVectoral(MatrixGetVector(m1, 0), operation, MatrixGetVector(m2, 0));
+    Vec3OperationVectoral(MatrixGetVector(m1, 1), operation, MatrixGetVector(m2, 1));
+    Vec3OperationVectoral(MatrixGetVector(m1, 2), operation, MatrixGetVector(m2, 2));
+}
+
+Matrix3D
+Matrix3DOperationScalarNew(Matrix3D *m1, float scalar)
+{
+    Vector3D vecA = Vec3OperationScalarNew(MatrixGetVector(m1, 0), Mul, scalar);
+    Vector3D vecB = Vec3OperationScalarNew(MatrixGetVector(m1, 1), Mul, scalar);
+    Vector3D vecC = Vec3OperationScalarNew(MatrixGetVector(m1, 2), Mul, scalar);
+
+    return Matrix3DNewFromVectors(&vecA, &vecB, &vecC);
+}
+
+void
+Matrix3DOperationScalar(Matrix3D *m1, float scalar)
+{
+    Vec3OperationScalar(MatrixGetVector(m1, 0), Mul, scalar);
+    Vec3OperationScalar(MatrixGetVector(m1, 1), Mul, scalar);
+    Vec3OperationScalar(MatrixGetVector(m1, 2), Mul, scalar);
+}
