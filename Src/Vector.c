@@ -8,18 +8,18 @@ Vector3D
 Vec3NormalizeNew(Vector3D *vec3)
 {
     float reverseMagnitude = InverseSquareRoot(vec3->x*vec3->x + vec3->y*vec3->y + vec3->z*vec3->z);
-    return Vec3ScalarOperationNew(vec3, Mul, reverseMagnitude);
+    return Vec3OperationScalarNew(vec3, Mul, reverseMagnitude);
 }
 
 void
 Vec3Normalize(Vector3D *vec3)
 {
     float reverseMagnitude = InverseSquareRoot(vec3->x*vec3->x + vec3->y*vec3->y + vec3->z*vec3->z);
-    Vec3ScalarOperation(vec3, Mul, reverseMagnitude);
+    Vec3OperationScalar(vec3, Mul, reverseMagnitude);
 }
 
 Vector3D
-Vec3ScalarOperationNew(Vector3D *vec3, Operation operation, float scalar)
+Vec3OperationScalarNew(Vector3D *vec3, Operation operation, float scalar)
 {
     Vector3D result = {};
     switch (operation)
@@ -46,7 +46,7 @@ Vec3ScalarOperationNew(Vector3D *vec3, Operation operation, float scalar)
 }
 
 void
-Vec3ScalarOperation(Vector3D *vec3, Operation operation, float scalar)
+Vec3OperationScalar(Vector3D *vec3, Operation operation, float scalar)
 {
     switch (operation)
     {
@@ -71,7 +71,7 @@ Vec3ScalarOperation(Vector3D *vec3, Operation operation, float scalar)
 }
 
 Vector3D
-Vec3VectoralOperationNew(Vector3D *vecA, Operation operation, Vector3D *vecB)
+Vec3OperationVectoralNew(Vector3D *vecA, Operation operation, Vector3D *vecB)
 {
     Vector3D result = {};
     float sign = 0;
@@ -96,7 +96,7 @@ Vec3VectoralOperationNew(Vector3D *vecA, Operation operation, Vector3D *vecB)
 }
 
 void
-Vec3VectoralOperation(Vector3D *vecA, Operation operation, Vector3D *vecB)
+Vec3OperationVectoral(Vector3D *vecA, Operation operation, Vector3D *vecB)
 {
     float sign = 0;
     
