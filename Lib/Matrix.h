@@ -12,15 +12,18 @@ Matrix3D Matrix3DNew(float n00, float n01, float n02,
                      float n20, float n21, float n22);
 Matrix3D Matrix3DNewFromVectors(const Vector3D *vecA, const Vector3D *vecB, const Vector3D *vecC);
 
-const float * MatrixGet(Matrix3D *matrix,int i, int j);
-Vector3D * MatrixGetVector(Matrix3D *matrix, int j);
+const float * MatrixGet(Matrix3D *M, int i, int j);
+Vector3D * MatrixGetVector(Matrix3D *M, int j);
 
-Matrix3D Matrix3DOperationNew(Matrix3D *m1, Operation operation, Matrix3D *m2);
-void Matrix3DOperation(Matrix3D *m1, Operation operation, Matrix3D *m2);
+Matrix3D Matrix3DOperationNew(Matrix3D *A, Operation operation, Matrix3D *B);
+void Matrix3DOperation(Matrix3D *A, Operation operation, Matrix3D *B);
 
-Matrix3D Matrix3DOperationScalarNew(Matrix3D *m1, float scalar);
-void Matrix3DOperationScalar(Matrix3D *m1, float scalar);
+Matrix3D Matrix3DOperationScalarNew(Matrix3D *A, float scalar);
+void Matrix3DOperationScalar(Matrix3D *A, float scalar);
 
-int Matrix3DEquals(Matrix3D *m1, Matrix3D *m2);
+int Matrix3DEquals(Matrix3D *A, Matrix3D *B);
+
+Matrix3D Matrix3DMulMatrix(Matrix3D *A, Matrix3D *B);
+Vector3D Matrix3DMulVector(Matrix3D *M, Vector3D *v);
 
 #endif

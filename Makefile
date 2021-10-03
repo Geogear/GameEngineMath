@@ -1,7 +1,7 @@
 TARGET = ./Bin/Program
 
 CC = gcc
-FLAGS = -Wall -Wextra -std=c90
+FLAGS = -Wall -Wextra -std=c99
 SRCS = ./Src/Main.c
 OBJS = $(SRCS:.c=.o)
 

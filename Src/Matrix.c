@@ -21,57 +21,80 @@ Matrix3DNewFromVectors(const Vector3D *vecA, const Vector3D *vecB, const Vector3
 }
 
 const float *
-MatrixGet(Matrix3D *matrix, int i, int j)
+MatrixGet(Matrix3D *M, int i, int j)
 {
-    return &matrix->n[j][i];
+    return &M->n[j][i];
 }
 
 Vector3D *
-MatrixGetVector(Matrix3D *matrix, int j)
+MatrixGetVector(Matrix3D *M, int j)
 {
     Vector3D *vec = NULL;
-    vec = (Vector3D *)matrix->n[j];
+    vec = (Vector3D *)M->n[j];
     return vec;
 }
 
 Matrix3D
-Matrix3DOperationNew(Matrix3D *m1, Operation operation, Matrix3D *m2)
+Matrix3DOperationNew(Matrix3D *A, Operation operation, Matrix3D *B)
 {
-    Vector3D vecA = Vec3OperationVectoralNew(MatrixGetVector(m1, 0), operation, MatrixGetVector(m2, 0));
-    Vector3D vecB = Vec3OperationVectoralNew(MatrixGetVector(m1, 1), operation, MatrixGetVector(m2, 1));
-    Vector3D vecC = Vec3OperationVectoralNew(MatrixGetVector(m1, 2), operation, MatrixGetVector(m2, 2));
+    Vector3D vecA = Vec3OperationVectoralNew(MatrixGetVector(A, 0), operation, MatrixGetVector(B, 0));
+    Vector3D vecB = Vec3OperationVectoralNew(MatrixGetVector(A, 1), operation, MatrixGetVector(B, 1));
+    Vector3D vecC = Vec3OperationVectoralNew(MatrixGetVector(A, 2), operation, MatrixGetVector(B, 2));
     return Matrix3DNewFromVectors(&vecA, &vecB, &vecC);
 }
 
-void Matrix3DOperation(Matrix3D *m1, Operation operation, Matrix3D *m2)
+void Matrix3DOperation(Matrix3D *A, Operation operation, Matrix3D *B)
 {
-    Vec3OperationVectoral(MatrixGetVector(m1, 0), operation, MatrixGetVector(m2, 0));
-    Vec3OperationVectoral(MatrixGetVector(m1, 1), operation, MatrixGetVector(m2, 1));
-    Vec3OperationVectoral(MatrixGetVector(m1, 2), operation, MatrixGetVector(m2, 2));
+    Vec3OperationVectoral(MatrixGetVector(A, 0), operation, MatrixGetVector(B, 0));
+    Vec3OperationVectoral(MatrixGetVector(A, 1), operation, MatrixGetVector(B, 1));
+    Vec3OperationVectoral(MatrixGetVector(A, 2), operation, MatrixGetVector(B, 2));
 }
 
 Matrix3D
-Matrix3DOperationScalarNew(Matrix3D *m1, float scalar)
+Matrix3DOperationScalarNew(Matrix3D *A, float scalar)
 {
-    Vector3D vecA = Vec3OperationScalarNew(MatrixGetVector(m1, 0), Mul, scalar);
-    Vector3D vecB = Vec3OperationScalarNew(MatrixGetVector(m1, 1), Mul, scalar);
-    Vector3D vecC = Vec3OperationScalarNew(MatrixGetVector(m1, 2), Mul, scalar);
+    Vector3D vecA = Vec3OperationScalarNew(MatrixGetVector(A, 0), Mul, scalar);
+    Vector3D vecB = Vec3OperationScalarNew(MatrixGetVector(A, 1), Mul, scalar);
+    Vector3D vecC = Vec3OperationScalarNew(MatrixGetVector(A, 2), Mul, scalar);
 
     return Matrix3DNewFromVectors(&vecA, &vecB, &vecC);
 }
 
 void
-Matrix3DOperationScalar(Matrix3D *m1, float scalar)
+Matrix3DOperationScalar(Matrix3D *A, float scalar)
 {
-    Vec3OperationScalar(MatrixGetVector(m1, 0), Mul, scalar);
-    Vec3OperationScalar(MatrixGetVector(m1, 1), Mul, scalar);
-    Vec3OperationScalar(MatrixGetVector(m1, 2), Mul, scalar);
+    Vec3OperationScalar(MatrixGetVector(A, 0), Mul, scalar);
+    Vec3OperationScalar(MatrixGetVector(A, 1), Mul, scalar);
+    Vec3OperationScalar(MatrixGetVector(A, 2), Mul, scalar);
 }
 
 int
-Matrix3DEquals(Matrix3D *m1, Matrix3D *m2)
+Matrix3DEquals(Matrix3D *A, Matrix3D *B)
 {
-    return Vec3Equals(MatrixGetVector(m1, 0), MatrixGetVector(m2, 0))
-        && Vec3Equals(MatrixGetVector(m1, 1), MatrixGetVector(m2, 1))
-        && Vec3Equals(MatrixGetVector(m1, 2), MatrixGetVector(m2, 2));
+    return Vec3Equals(MatrixGetVector(A, 0), MatrixGetVector(B, 0))
+        && Vec3Equals(MatrixGetVector(A, 1), MatrixGetVector(B, 1))
+        && Vec3Equals(MatrixGetVector(A, 2), MatrixGetVector(B, 2));
+}
+
+Matrix3D
+Matrix3DMulMatrix(Matrix3D *A, Matrix3D *B)
+{
+    return (Matrix3DNew(B->n[0][0] * A->n[0][0] + B->n[0][1] * A->n[1][0] + B->n[0][2] * A->n[2][0],
+                    B->n[0][0] * A->n[0][1] + B->n[0][1] * A->n[1][1] + B->n[0][2] * A->n[2][1],
+                    B->n[0][0] * A->n[0][2] + B->n[0][1] * A->n[1][2] + B->n[0][2] * A->n[2][2],
+                    B->n[1][0] * A->n[0][0] + B->n[1][1] * A->n[1][0] + B->n[1][2] * A->n[2][0],
+                    B->n[1][0] * A->n[0][1] + B->n[1][1] * A->n[1][1] + B->n[1][2] * A->n[2][1],
+                    B->n[1][0] * A->n[0][2] + B->n[1][1] * A->n[1][2] + B->n[1][2] * A->n[2][2],
+                    B->n[2][0] * A->n[0][0] + B->n[2][1] * A->n[1][0] + B->n[2][2] * A->n[2][0],
+                    B->n[2][0] * A->n[0][1] + B->n[2][1] * A->n[1][1] + B->n[2][2] * A->n[2][1],
+                    B->n[2][0] * A->n[0][2] + B->n[2][1] * A->n[1][2] + B->n[2][2] * A->n[2][2]));
+}
+
+Vector3D
+Matrix3DMulVector(Matrix3D *M, Vector3D *v)
+{
+    Vector3D vec = {.x = M->n[0][0] * v->x + M->n[1][0] * v->y + M->n[2][0] * v->z,
+                    .y = M->n[0][1] * v->x + M->n[1][1] * v->y + M->n[2][1] * v->z,
+                    .z = M->n[0][2] * v->x + M->n[1][2] * v->y + M->n[2][2] * v->z};
+    return vec;
 }
