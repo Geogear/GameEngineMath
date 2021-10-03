@@ -67,3 +67,11 @@ Matrix3DOperationScalar(Matrix3D *m1, float scalar)
     Vec3OperationScalar(MatrixGetVector(m1, 1), Mul, scalar);
     Vec3OperationScalar(MatrixGetVector(m1, 2), Mul, scalar);
 }
+
+int
+Matrix3DEquals(Matrix3D *m1, Matrix3D *m2)
+{
+    return Vec3Equals(MatrixGetVector(m1, 0), MatrixGetVector(m2, 0))
+        && Vec3Equals(MatrixGetVector(m1, 1), MatrixGetVector(m2, 1))
+        && Vec3Equals(MatrixGetVector(m1, 2), MatrixGetVector(m2, 2));
+}

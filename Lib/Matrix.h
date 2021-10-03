@@ -21,4 +21,6 @@ void Matrix3DOperation(Matrix3D *m1, Operation operation, Matrix3D *m2);
 Matrix3D Matrix3DOperationScalarNew(Matrix3D *m1, float scalar);
 void Matrix3DOperationScalar(Matrix3D *m1, float scalar);
 
+int Matrix3DEquals(Matrix3D *m1, Matrix3D *m2);
+
 #endif

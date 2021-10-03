@@ -26,4 +26,6 @@ void Vec3OperationScalar(Vector3D *vec3, Operation operation, float scalar);
 Vector3D Vec3OperationVectoralNew(Vector3D *vecA, Operation operation, Vector3D *vecB);
 void Vec3OperationVectoral(Vector3D *vecA, Operation operation, Vector3D *vecB);
 
+int Vec3Equals(Vector3D *vecA, Vector3D *vecB);
+
 #endif

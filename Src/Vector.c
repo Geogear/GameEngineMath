@@ -118,3 +118,9 @@ Vec3OperationVectoral(Vector3D *vecA, Operation operation, Vector3D *vecB)
     vecA->z += sign * vecB->z;
 
 }
+
+int
+Vec3Equals(Vector3D *vecA, Vector3D *vecB)
+{
+    return (vecA->x == vecB->x && vecA->y == vecB->y && vecA->z && vecB->z);
+}
