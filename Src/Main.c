@@ -10,6 +10,9 @@
 #include "Error.c"
 #include "Matrix.c"
 
+/* TODO, change matrix funcs to make it faster? because speed is important so
+    there should be no loops or extra func calls just bulky, long calculations. */
+
 int
 main(int argc, char **argv)
 {
